@@ -9,3 +9,10 @@ export const fetchSymbols = async () => {
   const response = await get(URI);
   return response.json();
 };
+
+export const symbolDetail = async (symbol) => {
+  const ENDPOINT = `/profile/${symbol}?apikey=${PARAMS}`;
+  const URI = `${BASE_URI}${ENDPOINT}`;
+  const response = await get(URI);
+  return response.json();
+};
