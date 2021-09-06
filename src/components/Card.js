@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import PropType from 'prop-types';
 import coin from '../assets/coin.svg';
-import parseNumber from '../helper/helper';
+import { parseNumber, parseText } from '../helper/helper';
 import './Card.css';
 
 const SingleCard = ({ company }) => {
@@ -15,7 +15,7 @@ const SingleCard = ({ company }) => {
             <img src={coin} alt="Market" className="coin-img" />
           </div>
           <div className="grid-card-details">
-            <h1 className="symbol">{id}</h1>
+            <h1 className="symbol">{parseText(id)}</h1>
             <h2 className="price">{parseNumber(value.volume)}</h2>
           </div>
         </div>

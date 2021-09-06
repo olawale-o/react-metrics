@@ -19,8 +19,8 @@
 }
 
 .grid-card-img {
-  width: 20rem;
-  height: 20rem;
+  width: 10rem;
+  height: 10rem;
   filter: brightness(50%) grayscale(50%) opacity(0.5);
 }
 

@@ -10,16 +10,16 @@ const Header = ({
       <div className="nav__left">
         {navigate && (
           <Link to="/">
-            <span><i className="bx bxs-chevron-left"> </i></span>
+            <span><i className="bx bxs-chevron-left" /></span>
           </Link>
         )}
-        {!navigate && <span><i className="bx bxs-chevron-left"> </i></span>}
+        {!navigate && <span><i className="bx bx-chevron-left" /></span>}
         {showYear && <span className="year">2021</span>}
       </div>
       <h5 className="nav-brand">{title}</h5>
       <div className="settings">
-        <i className="bx bx-microphone"> </i>
-        <i className="bx bx-cog"> </i>
+        <i className="bx bx-microphone" />
+        <i className="bx bx-cog" />
       </div>
     </nav>
   </header>

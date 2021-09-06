@@ -6,12 +6,11 @@ import stocksSelector from '../redux/stocks/stocksSelector';
 import Header from './Header';
 import Company from './Company';
 import coin from '../assets/coin.svg';
-import parseNumber from '../helper/helper';
-import LoadingIndicator from './LoadingIndicator';
+import { parseNumber } from '../helper/helper';
 
 const Detail = () => {
   const goBack = true;
-  const { selected, loading } = useSelector(stocksSelector);
+  const { selected } = useSelector(stocksSelector);
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(() => {
@@ -24,7 +23,6 @@ const Detail = () => {
   return (
     <div className="Detail">
       <Header title={id} navigate={goBack} />
-      {loading && <LoadingIndicator />}
       <div className="main-header">
         <div className="main-header__img">
           <img src={coin} alt="Stock Exchange" className="market-img" />

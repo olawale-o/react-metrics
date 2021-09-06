@@ -1,15 +1,15 @@
 import PropType from 'prop-types';
-import parseNumber from '../helper/helper';
+import { parseNumber } from '../helper/helper';
 
 const Company = ({ company }) => {
   const { id, value } = company;
   return (
     <li className="company__card">
       <div className="company__card-div">
-        <h5 className="symbol">{id}</h5>
+        <h6 className="symbol">{id}</h6>
         <div className="price">
           <span className="value">{parseNumber(value)}</span>
-          <i className="bx bx-right-arrow-circle" />
+          <i className="bx bx-right-arrow-circle nav-icon" />
         </div>
       </div>
     </li>
