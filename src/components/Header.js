@@ -9,7 +9,7 @@ const Header = ({
     <nav className="nav">
       <div className="nav__left">
         {navigate && (
-          <Link to="/">
+          <Link to="/" data-testid="back">
             <span><i className="bx bxs-chevron-left" /></span>
           </Link>
         )}
