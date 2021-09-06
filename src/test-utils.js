@@ -1,4 +1,5 @@
 import React from 'react';
+import PropType from 'prop-types';
 import { BrowserRouter } from 'react-router-dom';
 import { render as rtlRender } from '@testing-library/react';
 import { Provider } from 'react-redux';
@@ -17,9 +18,12 @@ const Wrapper = ({ children }) => (
     <Provider store={store}>{children}</Provider>
   </BrowserRouter>
 );
-const render = (ui, options) => {
-  return rtlRender(ui, { wrapper: Wrapper, ...options });
-}
-  
+
+Wrapper.propTypes = {
+  children: PropType.node.isRequired,
+};
+
+const render = (ui, options) => rtlRender(ui, { wrapper: Wrapper, ...options });
+
 export * from '@testing-library/react';
 export { render };

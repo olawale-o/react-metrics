@@ -1,4 +1,4 @@
-import stocksReducer , { loadSymbols, loadSymbol, loading } from '../redux/stocks/stocks';
+import stocksReducer, { loadSymbols, loadSymbol, loading } from '../redux/stocks/stocks';
 
 describe('Reducer', () => {
   test('Should return intialState', () => {
@@ -7,7 +7,7 @@ describe('Reducer', () => {
       total: 0,
       selected: null,
       loading: false,
-    }
+    };
     const newState = stocksReducer(undefined, {});
 
     expect(newState).toEqual(initialState);
@@ -39,7 +39,7 @@ describe('Reducer', () => {
     const payload = {
       items: symbols,
       total: 48,
-    }
+    };
     const nextState = {
       items: symbols,
       total: 48,
@@ -87,5 +87,4 @@ describe('Reducer', () => {
     const newState = stocksReducer(prevState, loadSymbol(payload));
     expect(newState).toEqual(nextState);
   });
-
 });
