@@ -1,4 +1,4 @@
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropType from 'prop-types';
 import coin from '../assets/coin.svg';
 import parseNumber from '../helper/helper';
@@ -8,16 +8,18 @@ const SingleCard = ({ company }) => {
   const { id, value } = company;
   return (
     <li className="grid-card">
-      <div className="grid-card-div">
-        <i className="bx bx-right-arrow-circle nav-icon arrow-icon" />
-        <div className="grid-card-img">
-          <img src={coin} alt="Market" className="coin-img" />
+      <Link to={`/${id}`}>
+        <div className="grid-card-div">
+          <i className="bx bx-right-arrow-circle nav-icon arrow-icon" />
+          <div className="grid-card-img">
+            <img src={coin} alt="Market" className="coin-img" />
+          </div>
+          <div className="grid-card-details">
+            <h1 className="symbol">{id}</h1>
+            <h2 className="price">{parseNumber(value.volume)}</h2>
+          </div>
         </div>
-        <div className="grid-card-details">
-          <h1 className="symbol">{id}</h1>
-          <h2 className="price">{parseNumber(value.volume)}</h2>
-        </div>
-      </div>
+      </Link>
     </li>
   );
 };
