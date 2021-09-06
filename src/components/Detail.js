@@ -21,10 +21,10 @@ const Detail = () => {
   const cards = selected.items.map((item) => <Company key={item.id} company={item} />);
   return (
     <div className="Detail">
-      <Header />
+      <Header title={id} navigate="true" />
       <div className="main-header">
         <div className="main-header__img">
-          <img src={coin} alt="Stock Exchange" className="world-pop" />
+          <img src={coin} alt="Stock Exchange" className="market-img" />
         </div>
         <div className="main-header__summary">
           <h1 className="category">{id}</h1>
