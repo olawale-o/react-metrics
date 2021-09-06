@@ -1,4 +1,4 @@
-import { fetchSymbols } from '../../utils/utils';
+import { fetchSymbols, symbolDetail } from '../../utils/utils';
 
 // export const LOADING = 'stock/stocks/LOADING';
 export const LOAD_SYMBOLS = 'stock/stocks/LOADSTOCKS';
@@ -46,6 +46,36 @@ export const getSymbols = () => (
     ));
     Object.assign(overall, { total, items });
     dispatch(loadSymbols(overall));
+  }
+);
+
+export const getSymbol = (symbol) => (
+  async function getSymbol(dispatch) {
+    // dispatch(loading(true));
+    let total = 0;
+    const symbolsObj = {};
+    const overall = {
+      total: 0,
+      items: [],
+    };
+    const allSymbols = await symbolDetail(symbol);
+    allSymbols.forEach(({ symbol, volume }) => {
+      total += volume;
+      if (symbol in symbolsObj) {
+        symbolsObj[symbol] += volume;
+      } else {
+        symbolsObj[symbol] = volume;
+      }
+    });
+
+    const items = Object.entries(symbolsObj).map(([key, value]) => (
+      {
+        id: key,
+        value,
+      }
+    ));
+    Object.assign(overall, { total, items });
+    dispatch(loadSymbol(overall));
   }
 );
 
