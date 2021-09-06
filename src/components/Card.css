@@ -1,0 +1,29 @@
+.grid-card-div {
+  display: flex;
+  flex-direction: column;
+}
+
+.arrow-icon {
+  position: absolute;
+  right: 0.45rem;
+  top: 0.45rem;
+}
+
+.grid-card:hover {
+  opacity: 0.5;
+}
+
+.grid-card:nth-child(4n + 2),
+.grid-card:nth-child(4n + 3) {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.grid-card-img {
+  width: 20rem;
+  height: 20rem;
+  filter: brightness(50%) grayscale(50%) opacity(0.5);
+}
+
+.grid-card-details {
+  text-align: right;
+}

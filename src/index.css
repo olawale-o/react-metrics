@@ -1,7 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
+
+@font-face {
+  font-family: GillSans;
+  src: url('./assets/Gill-Sans-Font-Family/GillSans.otf');
+}
+
+@font-face {
+  font-family: GillSansBold;
+  src: url('./assets/Gill-Sans-Font-Family/GillSansBold.otf');
+}
+
+:root {
+  --primary-color: #fb5092;
+  --secondary-color: #cf4278;
+  --text-color: #fff;
+  --body-color: #eb4c89;
+}
+
 *,
 *::before,
 *::after {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 62.5%;
+  font-family: GillSans, 'Lato', sans-serif;
+  background: var(--body-color);
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+i {
+  font-size: 3rem;
+}
+
+.nav-icon {
+  font-size: 2rem;
+}
+
+.App {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.Main,
+.Detail {
+  width: 100%;
+}
+
+.main-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 30px;
+  grid-gap: 30px;
+}
+
+.market-img {
+  filter: brightness(40%) opacity(0.5);
+}
+
+.main-content {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.main-content__heading {
+  font-size: 1.5rem;
+  word-spacing: 0.8px;
+  padding: 0.5rem 1.8rem;
+}
+
+.main-header__summary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 1.5rem;
+}
+
+.category {
+  font-size: 2.5rem;
+}
+
+.total {
+  font-size: 2rem;
+}
+
+.main-content__card-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-auto-rows: 1fr;
+  background: var(--secondary-color);
+}
+
+.company__card-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 1fr;
+  padding: 0 1.8rem;
+}
+
+.main-content__card-list .grid-card {
+  position: relative;
+  padding: 1rem 1.8rem;
+}
+
+.symbol {
+  font-size: 2.5rem;
+}
+
+.price {
+  font-size: 2rem;
+  opacity: 0.8;
+  margin-bottom: 1rem;
+}
+
+.company__card {
+  padding: 3rem 1.5rem;
+  cursor: pointer;
+}
+
+.company__card-div {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.company__card-div div {
+  text-align: right;
+}
+
+.value {
+  margin-right: 2rem;
+}
+
+.company__card:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.08);
 }
