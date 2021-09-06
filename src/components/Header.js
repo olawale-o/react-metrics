@@ -2,7 +2,9 @@ import PropType from 'prop-types';
 import { Link } from 'react-router-dom';
 import './Header.css';
 
-const Header = ({ showYear, title, navigate }) => (
+const Header = ({
+  showYear, title, navigate,
+}) => (
   <header className="header">
     <nav className="nav">
       <div className="nav__left">

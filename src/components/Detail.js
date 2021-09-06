@@ -7,9 +7,11 @@ import Header from './Header';
 import Company from './Company';
 import coin from '../assets/coin.svg';
 import parseNumber from '../helper/helper';
+import LoadingIndicator from './LoadingIndicator';
 
 const Detail = () => {
-  const { selected } = useSelector(stocksSelector);
+  const goBack = true;
+  const { selected, loading } = useSelector(stocksSelector);
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(() => {
@@ -21,7 +23,8 @@ const Detail = () => {
   const cards = selected.items.map((item) => <Company key={item.id} company={item} />);
   return (
     <div className="Detail">
-      <Header title={id} navigate="true" />
+      <Header title={id} navigate={goBack} />
+      {loading && <LoadingIndicator />}
       <div className="main-header">
         <div className="main-header__img">
           <img src={coin} alt="Stock Exchange" className="market-img" />
