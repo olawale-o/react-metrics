@@ -8,7 +8,7 @@
 - React JS
 
 # Screenshot
-![screenshot](https://github.com/olawale-o/react-space-travelers/blob/deploy/src/assets/screenshot.png?raw=true")
+![screenshot](https://github.com/olawale-o/react-metrics/blob/deploy/src/assets/screenshot.png?raw=true")
 
 # Demo Link
 
