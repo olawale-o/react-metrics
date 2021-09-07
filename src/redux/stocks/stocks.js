@@ -87,9 +87,6 @@ const initialState = {
   loading: false,
 };
 
-// action.payload
-// { ...state, selected: action.payload };
-
 const symbolsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_SYMBOLS: {
