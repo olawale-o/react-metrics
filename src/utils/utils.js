@@ -4,7 +4,7 @@ const BASE_URI = 'https://financialmodelingprep.com/api/v3/stock-screener?market
 const KEY = '76109e81ecec8a4c42637f7a2cead33e';
 
 export const fetchSymbols = async () => {
-  const EXCHANGES = ['NYSE', 'NASDAQ', 'AMEX', 'TSX', 'MUTUAL_FUND', 'EURONEXT'].join(',');
+  const EXCHANGES = ['AMEX', 'TSX', 'MUTUAL_FUND', 'EURONEXT'].join(',');
   const ENDPOINT = `${EXCHANGES}&apikey=${KEY}`;
   const URI = `${BASE_URI}${ENDPOINT}`;
   const response = await get(URI);
