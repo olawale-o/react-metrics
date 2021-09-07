@@ -1,0 +1,29 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+  padding: 1.8rem;
+  font-size: 2rem;
+  background: rgba(0, 0, 0, 0.06);
+  width: 100%;
+}
+
+.nav-brand {
+  text-align: center;
+  font-size: 2rem;
+  font-family: GillSansLight, sans-serif;
+}
+
+.nav__left {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: left;
+}
+
+.settings {
+  display: flex;
+  justify-content: space-between;
+  width: 10rem;
+}
