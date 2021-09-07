@@ -1,4 +1,4 @@
-# React Metrics - Shares Valume
+# React Metrics - Shares Volume
 
 > "React Metrics" is a metric based web app that gives real-time updates on volume of shares traded in the
 > stock market.
