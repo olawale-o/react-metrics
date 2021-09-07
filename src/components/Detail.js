@@ -10,6 +10,7 @@ import { parseNumber } from '../helper/helper';
 
 const Detail = () => {
   const goBack = true;
+  const showYear = false;
   const { selected } = useSelector(stocksSelector);
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -22,7 +23,7 @@ const Detail = () => {
   const cards = selected.items.map((item) => <Company key={item.id} company={item} />);
   return (
     <div className="Detail">
-      <Header title={id} navigate={goBack} />
+      <Header title={id} navigate={goBack} showYear={showYear} />
       <div className="main-header">
         <div className="main-header__img">
           <img src={coin} alt="Stock Exchange" className="market-img" />

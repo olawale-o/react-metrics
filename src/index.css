@@ -135,7 +135,6 @@ i {
 .symbol {
   font-size: 20px;
   font-family: GillSansMedium, sans-serif;
-  padding: 0 2rem;
 }
 
 .price {
@@ -143,6 +142,7 @@ i {
   opacity: 0.8;
   margin-bottom: 1rem;
   font-family: GillSans, sans-serif;
+  text-align: right;
 }
 
 .company__card {
