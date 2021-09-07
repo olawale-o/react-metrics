@@ -6,6 +6,13 @@
 # Built With
 - CSS
 - React JS
+
+# Screenshot
+![screenshot](https://github.com/olawale-o/react-space-travelers/blob/deploy/src/assets/screenshot.png?raw=true")
+
+# Demo Link
+
+[Link](https://kind-goodall-4886a1.netlify.app/)
 # Getting started
 ## To get a local copy of this repository kindly follow the steps below.
 - Scroll to top of this current repository
