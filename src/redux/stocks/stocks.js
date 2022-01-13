@@ -19,33 +19,51 @@ export const loadSymbol = (payload) => ({
   payload,
 });
 
+const symobolsReducer = (previous, { exchangeShortName, volume, exchange }) => {
+  let { total } = previous;
+  const { items, exchanges } = previous;
+  total += volume;
+  if (exchangeShortName in exchanges) {
+    exchanges[exchangeShortName].value.volume += volume;
+  } else {
+    exchanges[exchangeShortName] = { value: { volume, exchange } };
+    items.push({ id: exchangeShortName, value: exchanges[exchangeShortName].value });
+  }
+  return {
+    total,
+    items,
+    exchanges,
+  };
+};
+
+const singleSymbolReducer = (previous, { symbol, volume }) => {
+  let { total } = previous;
+  const { items, symbols } = previous;
+  total += volume;
+  if (symbol in symbols) {
+    symbols[symbol] += volume;
+  } else {
+    symbols[symbol] = volume;
+    items.push({ id: symbol, value: symbols[symbol] });
+  }
+
+  return {
+    total,
+    items,
+    symbols,
+  };
+};
+
 export const getSymbols = () => (
   async function getSymbols(dispatch) {
     dispatch(loading(true));
-    let total = 0;
-    const exchangesObj = {};
-    const overall = {
-      total: 0,
-      items: [],
-    };
     const allSymbols = await fetchSymbols();
-
-    allSymbols.forEach(({ exchangeShortName, volume, exchange }) => {
-      total += volume;
-      if (exchangeShortName in exchangesObj) {
-        exchangesObj[exchangeShortName].volume += volume;
-      } else {
-        exchangesObj[exchangeShortName] = { volume, exchange };
-      }
-    });
-
-    const items = Object.entries(exchangesObj).map(([key, value]) => (
-      {
-        id: key,
-        value,
-      }
-    ));
-    Object.assign(overall, { total, items });
+    const { total, items } = allSymbols.reduce(symobolsReducer,
+      { total: 0, items: [], exchanges: {} });
+    const overall = {
+      total,
+      items,
+    };
     dispatch(loadSymbols(overall));
   }
 );
@@ -53,29 +71,13 @@ export const getSymbols = () => (
 export const getSymbol = (symbol) => (
   async function getSymbol(dispatch) {
     dispatch(loading(true));
-    let total = 0;
-    const symbolsObj = {};
-    const overall = {
-      total: 0,
-      items: [],
-    };
     const allSymbols = await symbolDetail(symbol);
-    allSymbols.forEach(({ symbol, volume }) => {
-      total += volume;
-      if (symbol in symbolsObj) {
-        symbolsObj[symbol] += volume;
-      } else {
-        symbolsObj[symbol] = volume;
-      }
-    });
-
-    const items = Object.entries(symbolsObj).map(([key, value]) => (
-      {
-        id: key,
-        value,
-      }
-    ));
-    Object.assign(overall, { total, items });
+    const { total, items } = allSymbols.reduce(singleSymbolReducer,
+      { total: 0, items: [], symbols: {} });
+    const overall = {
+      total,
+      items,
+    };
     dispatch(loadSymbol(overall));
   }
 );
