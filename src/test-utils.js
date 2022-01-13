@@ -5,13 +5,25 @@ import { render as rtlRender } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunkMiddleWare from 'redux-thunk';
-import stocksReducers from './redux/stocks/stocks';
+import stocksReducers, { LOAD_SYMBOLS } from './redux/stocks/stocks';
 
 const middlewares = [thunkMiddleWare];
 const middlewareEnhancers = applyMiddleware(...middlewares);
 
 const reducer = combineReducers({ stocks: stocksReducers });
 const store = createStore(reducer, middlewareEnhancers);
+
+const stocksCreator = (payload) => ({
+  type: LOAD_SYMBOLS,
+  payload,
+});
+
+const marketData = [
+  { id: 'NYSE', value: { volume: 23, exchange: 'New York Stock Exchange Arca' } },
+  { id: 'TSX', value: { volume: 25, exchange: 'Toronto' } },
+];
+
+store.dispatch(stocksCreator({ total: 48, items: marketData }));
 
 const Wrapper = ({ children }) => (
   <BrowserRouter>

@@ -6,8 +6,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import configureStore from './redux/configureStore';
+import { getSymbols } from './redux/stocks/stocks';
 
 const store = configureStore;
+store.dispatch(getSymbols());
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

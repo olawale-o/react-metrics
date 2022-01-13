@@ -29,3 +29,14 @@ test('Should navigate to back homepage', async () => {
   expect(await screen.findByText(/TSX/i)).toBeInTheDocument();
   expect(await screen.findByText(/25/i)).toBeInTheDocument();
 });
+
+test('Should type in search field', async () => {
+  render(<App />);
+  expect(screen.getByPlaceholderText('Search Market')).toBeInTheDocument();
+  const input = screen.getByPlaceholderText('Search Market');
+  fireEvent.change(input, { target: { value: 'TSX' } });
+  expect(input.value).not.toBe('NYSE');
+  expect(input.value).toBe('TSX');
+  expect(await screen.queryByText(/NYSE/i)).not.toBeInTheDocument();
+  expect(await screen.queryByText(/TSX/i)).toBeInTheDocument();
+});

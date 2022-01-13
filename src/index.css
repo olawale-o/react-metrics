@@ -96,7 +96,6 @@ i {
 .main-content__heading {
   font-size: 1.5rem;
   word-spacing: 0.8px;
-  padding: 0.5rem 1.8rem;
 }
 
 .main-header__summary {
@@ -186,4 +185,21 @@ i {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.filter-section {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+}
+
+.input {
+  padding: 0.8rem 1rem;
+  outline: none;
+  border: none;
+  border-radius: 0.8rem;
+}
+
+.input:focus {
+  border-color: #fff;
 }

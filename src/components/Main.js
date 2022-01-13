@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getSymbols } from '../redux/stocks/stocks';
+import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import stocksSelector from '../redux/stocks/stocksSelector';
 import SingleCard from './Card';
 import Header from './Header';
@@ -9,17 +8,22 @@ import { parseNumber } from '../helper/helper';
 import LoadingIndicator from './LoadingIndicator';
 
 const Main = () => {
-  const dispatch = useDispatch();
+  const [marketName, setMarketName] = useState('');
   const { items, total, loading } = useSelector(stocksSelector);
+  const [markets, setMarkets] = useState(items);
   useEffect(() => {
-    if (items.length < 1) {
-      dispatch(getSymbols());
-    }
-  }, []);
+    setMarkets(items);
+  }, [items]);
 
-  const companies = items.map((stock) => (
+  const companies = markets.map((stock) => (
     <SingleCard key={stock.id} company={stock} />
   ));
+
+  const onMarketChange = (e) => {
+    setMarketName(e.target.value.toUpperCase());
+    const matchedMarkets = items.filter((item) => item.id.startsWith(e.target.value.toUpperCase()));
+    setMarkets(matchedMarkets);
+  };
 
   return (
     <div className="Main">
@@ -35,7 +39,10 @@ const Main = () => {
         </div>
       </div>
       <div className="main-content">
-        <h3 className="main-content__heading">VOLUME OF SHARES BY EXCHANGE</h3>
+        <div className="filter-section">
+          <h3 className="main-content__heading">VOLUME OF SHARES BY EXCHANGE</h3>
+          <input className="input" value={marketName} onChange={onMarketChange} placeholder="Search Market" />
+        </div>
         <ul className="main-content__card-list">
           {companies}
         </ul>
