@@ -15,7 +15,7 @@ const Detail = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   useEffect(() => {
-    dispatch(getSymbol(id));
+    dispatch(getSymbol(id, 10));
   }, []);
   if (!selected) {
     return null;

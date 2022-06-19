@@ -68,10 +68,10 @@ export const getSymbols = () => (
   }
 );
 
-export const getSymbol = (symbol) => (
+export const getSymbol = (symbol, limit) => (
   async function getSymbol(dispatch) {
     dispatch(loading(true));
-    const allSymbols = await symbolDetail(symbol);
+    const allSymbols = await symbolDetail(symbol, limit);
     const { total, items } = allSymbols.reduce(singleSymbolReducer,
       { total: 0, items: [], symbols: {} });
     const overall = {

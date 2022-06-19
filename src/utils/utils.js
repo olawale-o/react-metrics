@@ -11,8 +11,8 @@ export const fetchSymbols = async () => {
   return response.json();
 };
 
-export const symbolDetail = async (symbol) => {
-  const ENDPOINT = `${symbol}&apikey=${KEY}`;
+export const symbolDetail = async (symbol, limit) => {
+  const ENDPOINT = `${symbol}&limit=${limit}&apikey=${KEY}`;
   const URI = `${BASE_URI}${ENDPOINT}`;
   const response = await get(URI);
   return response.json();
