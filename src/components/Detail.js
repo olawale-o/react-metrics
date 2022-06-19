@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getSymbol } from '../redux/stocks/stocks';
@@ -14,9 +14,15 @@ const Detail = () => {
   const { selected } = useSelector(stocksSelector);
   const dispatch = useDispatch();
   const { id } = useParams();
+  const [limit, setLimit] = useState(5);
   useEffect(() => {
-    dispatch(getSymbol(id, 10));
-  }, []);
+    dispatch(getSymbol(id, limit));
+  }, [limit, id]);
+
+  const loadMore = () => {
+    setLimit(limit + 5);
+  };
+
   if (!selected) {
     return null;
   }
@@ -38,6 +44,7 @@ const Detail = () => {
         <ul className="company__card-list">
           {cards}
         </ul>
+        <button type="button" onClick={loadMore}>Load More</button>
       </div>
     </div>
   );
