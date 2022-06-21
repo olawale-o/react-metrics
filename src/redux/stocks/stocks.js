@@ -73,7 +73,9 @@ export const getSymbols = () => (
       dispatch(loadSymbols(overall));
     } catch (e) {
       if (e instanceof Error) {
-        dispatch(setError('Failed fetching symbols'));
+        dispatch(setError('Failed fetching symbols.',
+          'Please ensure you have a working internet connection.',
+          'If the problem persists, please contact support.'));
       } else {
         dispatch(setError('Unknown error'));
       }
@@ -95,7 +97,9 @@ export const getSymbol = (symbol, limit) => (
       dispatch(loadSymbol(overall));
     } catch (e) {
       if (e instanceof Error) {
-        dispatch(setError('Failed fetching symbol details'));
+        dispatch(setError('Failed fetching symbol details',
+          'Please ensure you have a working internet connection.',
+          'If the problem persists, please contact support.'));
       } else {
         dispatch(setError('Unknown error'));
       }
