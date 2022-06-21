@@ -168,10 +168,17 @@ i {
   background-color: rgba(0, 0, 0, 0.08);
 }
 
-.loading__container {
-  min-height: 100vh;
+.loading-container {
   display: grid;
   place-items: center;
+}
+
+.loading-container_h {
+  min-height: 100vh;
+}
+
+.loading-container_s{
+  height: 20px;
 }
 
 .loader {
