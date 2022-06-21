@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect, useState, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getSymbol } from '../redux/stocks/stocks';
 import stocksSelector from '../redux/stocks/stocksSelector';
@@ -7,26 +7,50 @@ import Header from './Header';
 import Company from './Company';
 import coin from '../assets/coin.svg';
 import { parseNumber } from '../helper/helper';
+import LoadingIndicator from './LoadingIndicator';
 
 const Detail = () => {
   const goBack = true;
   const showYear = false;
-  const { selected } = useSelector(stocksSelector);
+  const { selected, loading, error } = useSelector(stocksSelector);
   const dispatch = useDispatch();
   const { id } = useParams();
   const [limit, setLimit] = useState(5);
+  const loader = useRef();
+
+  const loadMore = () => {
+    setLimit((prevLimit) => prevLimit + 5);
+  };
+
+  const handleObserver = (entries) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      loadMore();
+    }
+  };
   useEffect(() => {
     dispatch(getSymbol(id, limit));
   }, [limit, id]);
 
-  const loadMore = () => {
-    setLimit(limit + 5);
-  };
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '20px',
+      threshold: 1,
+    };
+    const observer = new IntersectionObserver(handleObserver, options);
+    if (loader.current) {
+      observer.observe(loader.current);
+    }
+    return () => observer.disconnect();
+  }, [loading]);
 
-  if (!selected) {
-    return null;
-  }
-  const cards = selected.items.map((item) => <Company key={item.id} company={item} />);
+  if (loading && !selected) return (<LoadingIndicator />);
+
+  if (error) return (<div>{error}</div>);
+
+  if (!selected) return null;
+
   return (
     <div className="Detail">
       <Header title={id} navigate={goBack} showYear={showYear} />
@@ -42,9 +66,9 @@ const Detail = () => {
       <div className="main-content">
         <h3 className="main-content__heading">VOLUME OF SHARES BREAKDOWN - 2021</h3>
         <ul className="company__card-list">
-          {cards}
+          {selected.items.map((item) => <Company key={item.id} company={item} />)}
         </ul>
-        <button type="button" onClick={loadMore}>Load More</button>
+        <div ref={loader}>Load More</div>
       </div>
     </div>
   );
