@@ -3,6 +3,16 @@ import App from './App';
 
 jest.mock('./utils/utils.js');
 
+beforeEach(() => {
+  const mockIntersectionObserver = jest.fn();
+  mockIntersectionObserver.mockReturnValue({
+    observe: () => null,
+    unobserve: () => null,
+    disconnect: () => null,
+  });
+  window.IntersectionObserver = mockIntersectionObserver;
+});
+
 test('Should fetch and display symbols on homepage', async () => {
   render(<App />);
   expect(await screen.findByText(/48/i)).toBeInTheDocument();
