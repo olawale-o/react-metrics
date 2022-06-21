@@ -68,7 +68,7 @@ const Detail = () => {
         <ul className="company__card-list">
           {selected.items.map((item) => <Company key={item.id} company={item} />)}
         </ul>
-        <div ref={loader}>Load More</div>
+        <LoadingIndicator ref={loader} isSmall />
       </div>
     </div>
   );
