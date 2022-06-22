@@ -41,7 +41,10 @@ const Main = () => {
       <div className="main-content">
         <div className="filter-section">
           <h3 className="main-content__heading">VOLUME OF SHARES BY EXCHANGE</h3>
-          <input className="input" value={marketName} onChange={onMarketChange} placeholder="Search Market" />
+          <div className="filter-section__filter">
+            <input className="input" value={marketName} onChange={onMarketChange} placeholder="Search Market" />
+            <button type="button" className="">Filter by</button>
+          </div>
         </div>
         <ul className="main-content__card-list">
           {companies}
