@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from './test-utils';
+import { screen, fireEvent } from '@testing-library/dom';
+import { render } from './test-utils';
 import App from './App';
 
 jest.mock('./utils/utils.js');
