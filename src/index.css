@@ -198,8 +198,13 @@ i {
 .filter-section {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   padding: 2rem;
+}
+
+.filter-section__filter {
+  display: flex;
+  justify-content: space-between;
 }
 
 .input {
@@ -211,4 +216,13 @@ i {
 
 .input:focus {
   border-color: #fff;
+}
+
+@media screen and (min-width: 768px) {
+  .filter-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }  
 }
