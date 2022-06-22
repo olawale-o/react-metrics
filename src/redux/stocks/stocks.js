@@ -1,11 +1,16 @@
 import { fetchSymbols, symbolDetail } from '../../utils/utils';
 
 export const LOADING = 'stock/stocks/LOADING';
+export const ERROR = 'stock/stocks/ERROR';
 export const LOAD_SYMBOLS = 'stock/stocks/LOADSTOCKS';
 export const LOAD_SYMBOL = 'stock/stocks/LOADSTOCK';
 
-export const loading = (payload) => ({
+export const loading = () => ({
   type: LOADING,
+});
+
+export const setError = (payload) => ({
+  type: ERROR,
   payload,
 });
 
@@ -56,29 +61,49 @@ const singleSymbolReducer = (previous, { symbol, volume }) => {
 
 export const getSymbols = () => (
   async function getSymbols(dispatch) {
-    dispatch(loading(true));
-    const allSymbols = await fetchSymbols();
-    const { total, items } = allSymbols.reduce(symobolsReducer,
-      { total: 0, items: [], exchanges: {} });
-    const overall = {
-      total,
-      items,
-    };
-    dispatch(loadSymbols(overall));
+    try {
+      dispatch(loading());
+      const allSymbols = await fetchSymbols();
+      const { total, items } = allSymbols.reduce(symobolsReducer,
+        { total: 0, items: [], exchanges: {} });
+      const overall = {
+        total,
+        items,
+      };
+      dispatch(loadSymbols(overall));
+    } catch (e) {
+      if (e instanceof Error) {
+        dispatch(setError('Failed fetching symbols.',
+          'Please ensure you have a working internet connection.',
+          'If the problem persists, please contact support.'));
+      } else {
+        dispatch(setError('Unknown error'));
+      }
+    }
   }
 );
 
-export const getSymbol = (symbol) => (
+export const getSymbol = (symbol, limit) => (
   async function getSymbol(dispatch) {
-    dispatch(loading(true));
-    const allSymbols = await symbolDetail(symbol);
-    const { total, items } = allSymbols.reduce(singleSymbolReducer,
-      { total: 0, items: [], symbols: {} });
-    const overall = {
-      total,
-      items,
-    };
-    dispatch(loadSymbol(overall));
+    try {
+      dispatch(loading());
+      const allSymbols = await symbolDetail(symbol, limit);
+      const { total, items } = allSymbols.reduce(singleSymbolReducer,
+        { total: 0, items: [], symbols: {} });
+      const overall = {
+        total,
+        items,
+      };
+      dispatch(loadSymbol(overall));
+    } catch (e) {
+      if (e instanceof Error) {
+        dispatch(setError('Failed fetching symbol details',
+          'Please ensure you have a working internet connection.',
+          'If the problem persists, please contact support.'));
+      } else {
+        dispatch(setError('Unknown error'));
+      }
+    }
   }
 );
 
@@ -87,19 +112,31 @@ const initialState = {
   total: 0,
   selected: null,
   loading: false,
+  error: null,
 };
 
 const symbolsReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_SYMBOLS: {
       return {
-        ...state, total: action.payload.total, items: action.payload.items, loading: false,
+        ...state,
+        total: action.payload.total,
+        items: action.payload.items,
+        loading: false,
+        error: null,
       };
     }
     case LOAD_SYMBOL:
-      return { ...state, selected: action.payload, loading: false };
+      return {
+        ...state,
+        selected: action.payload,
+        loading: false,
+        error: null,
+      };
     case LOADING:
       return { ...state, loading: true };
+    case ERROR:
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }

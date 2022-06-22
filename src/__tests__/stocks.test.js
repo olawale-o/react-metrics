@@ -7,6 +7,7 @@ describe('Reducer', () => {
       total: 0,
       selected: null,
       loading: false,
+      error: null,
     };
     const newState = stocksReducer(undefined, {});
 
@@ -19,6 +20,7 @@ describe('Reducer', () => {
       total: 0,
       selected: null,
       loading: true,
+      error: null,
     };
     const newState = stocksReducer(undefined, loading(true));
     expect(newState).toEqual(nextState);
@@ -30,6 +32,7 @@ describe('Reducer', () => {
       total: 0,
       selected: null,
       loading: false,
+      error: null,
     };
 
     const symbols = [
@@ -45,6 +48,7 @@ describe('Reducer', () => {
       total: 48,
       selected: null,
       loading: false,
+      error: null,
     };
     const newState = stocksReducer(prevState, loadSymbols(payload));
     expect(newState).toEqual(nextState);
@@ -71,6 +75,7 @@ describe('Reducer', () => {
       total: 48,
       selected: null,
       loading: false,
+      error: null,
     };
 
     const payload = {
@@ -83,6 +88,7 @@ describe('Reducer', () => {
       total: 48,
       selected,
       loading: false,
+      error: null,
     };
     const newState = stocksReducer(prevState, loadSymbol(payload));
     expect(newState).toEqual(nextState);

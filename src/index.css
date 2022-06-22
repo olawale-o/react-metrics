@@ -124,6 +124,7 @@ i {
   display: grid;
   grid-template-columns: 1fr;
   grid-auto-rows: 1fr;
+  margin-bottom: 2rem;
 }
 
 .main-content__card-list .grid-card {
@@ -167,10 +168,17 @@ i {
   background-color: rgba(0, 0, 0, 0.08);
 }
 
-.loading__container {
-  min-height: 100vh;
+.loading-container {
   display: grid;
   place-items: center;
+}
+
+.loading-container_h {
+  min-height: 100vh;
+}
+
+.loading-container_s {
+  height: 20px;
 }
 
 .loader {
