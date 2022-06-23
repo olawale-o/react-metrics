@@ -11,6 +11,7 @@ const Main = () => {
   const [marketName, setMarketName] = useState('');
   const { items, total, loading } = useSelector(stocksSelector);
   const [markets, setMarkets] = useState(items);
+  const [dropDown, setDropDown] = useState(false);
   useEffect(() => {
     setMarkets(items);
   }, [items]);
@@ -42,8 +43,29 @@ const Main = () => {
         <div className="filter-section">
           <h3 className="main-content__heading">VOLUME OF SHARES BY EXCHANGE</h3>
           <div className="filter-section__filter">
-            <input className="input" value={marketName} onChange={onMarketChange} placeholder="Search Market" />
-            <button type="button" className="">Filter by</button>
+            <input className="input filter-section__input" value={marketName} onChange={onMarketChange} placeholder="Search Market" />
+            <div className="filter">
+              <button
+                type="button"
+                className="filter__button"
+                onClick={() => {
+                  setDropDown(!dropDown);
+                }}
+              >
+                Sort by
+              </button>
+              <ul className={`filter__list menu-1 ${dropDown && 'active'}`}>
+                <li className="list__item">
+                  <button className="list__button" type="button">A - Z</button>
+                </li>
+                <li className="list__item">
+                  <button className="list__button" type="button">Z - A</button>
+                </li>
+                <li className="list__item">
+                  <button className="list__button" type="button">Volume</button>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
         <ul className="main-content__card-list">
