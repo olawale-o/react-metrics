@@ -286,7 +286,7 @@ i {
     align-items: center;
   }
 
-  .main-content__heading  {
+  .main-content__heading {
     flex: 2;
   }
 
@@ -297,7 +297,7 @@ i {
   .filter-section__input {
     width: 60%;
   }
-  
+
   .filter {
     width: 35%;
   }
