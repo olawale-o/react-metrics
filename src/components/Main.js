@@ -32,6 +32,7 @@ const Main = () => {
   const sortBy = (options) => {
     const newMarkets = orderBy(markets, options);
     setMarkets(newMarkets);
+    setDropDown(!dropDown);
   };
 
   return (
