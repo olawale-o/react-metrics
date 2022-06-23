@@ -4,7 +4,7 @@ import stocksSelector from '../redux/stocks/stocksSelector';
 import SingleCard from './Card';
 import Header from './Header';
 import stock from '../assets/stock.png';
-import { parseNumber } from '../helper/helper';
+import { parseNumber, orderBy } from '../helper/helper';
 import LoadingIndicator from './LoadingIndicator';
 
 const Main = () => {
@@ -27,6 +27,11 @@ const Main = () => {
     setFilterBy((prevState) => ({ ...prevState, marketName: e.target.value.toUpperCase() }));
     const matchedMarkets = items.filter((item) => item.id.startsWith(e.target.value.toUpperCase()));
     setMarkets(matchedMarkets);
+  };
+
+  const sortBy = (options) => {
+    const newMarkets = orderBy(markets, options);
+    setMarkets(newMarkets);
   };
 
   return (
@@ -59,13 +64,16 @@ const Main = () => {
               </button>
               <ul className={`filter__list menu-1 ${dropDown && 'active'}`}>
                 <li className="list__item">
-                  <button className="list__button" type="button">A - Z</button>
+                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'asc' })}>A - Z</button>
                 </li>
                 <li className="list__item">
-                  <button className="list__button" type="button">Z - A</button>
+                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'desc' })}>Z - A</button>
                 </li>
                 <li className="list__item">
-                  <button className="list__button" type="button">Volume</button>
+                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'asc' })}>Volume - Lowest</button>
+                </li>
+                <li className="list__item">
+                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'desc' })}>Volume - Highest</button>
                 </li>
               </ul>
             </div>
