@@ -19,11 +19,14 @@ const stocksCreator = (payload) => ({
 });
 
 const marketData = [
-  { id: 'NYSE', value: { volume: 23, exchange: 'New York Stock Exchange Arca' } },
-  { id: 'TSX', value: { volume: 25, exchange: 'Toronto' } },
+  { id: 'NYSE', value: { volume: 23, exchange: 'New York Stock Exchange Area' } },
+  { id: 'TSX', value: { volume: 25, exchange: 'Toronto Exchange' } },
+  { id: 'AMEX', value: { volume: 10, exchange: 'AMERICA EXPRESS' } },
+  { id: 'NASDAQ', value: { volume: 80, exchange: 'NASDAQ Exchange' } },
+  { id: 'EURONEXT', value: { volume: 90, exchange: 'Euro Exchange' } },
 ];
 
-store.dispatch(stocksCreator({ total: 48, items: marketData }));
+store.dispatch(stocksCreator({ total: 228, items: marketData }));
 
 const Wrapper = ({ children }) => (
   <BrowserRouter>
