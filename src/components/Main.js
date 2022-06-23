@@ -8,7 +8,10 @@ import { parseNumber } from '../helper/helper';
 import LoadingIndicator from './LoadingIndicator';
 
 const Main = () => {
-  const [marketName, setMarketName] = useState('');
+  const [filterBy, setFilterBy] = useState({
+    marketName: '',
+    sortBy: 'all',
+  });
   const { items, total, loading } = useSelector(stocksSelector);
   const [markets, setMarkets] = useState(items);
   const [dropDown, setDropDown] = useState(false);
@@ -21,7 +24,7 @@ const Main = () => {
   ));
 
   const onMarketChange = (e) => {
-    setMarketName(e.target.value.toUpperCase());
+    setFilterBy((prevState) => ({ ...prevState, marketName: e.target.value.toUpperCase() }));
     const matchedMarkets = items.filter((item) => item.id.startsWith(e.target.value.toUpperCase()));
     setMarkets(matchedMarkets);
   };
@@ -43,7 +46,7 @@ const Main = () => {
         <div className="filter-section">
           <h3 className="main-content__heading">VOLUME OF SHARES BY EXCHANGE</h3>
           <div className="filter-section__filter">
-            <input className="input filter-section__input" value={marketName} onChange={onMarketChange} placeholder="Search Market" />
+            <input className="input filter-section__input" value={filterBy.marketName} onChange={onMarketChange} placeholder="Search Market" />
             <div className="filter">
               <button
                 type="button"
