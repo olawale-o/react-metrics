@@ -4,6 +4,9 @@
       "es6": true,
       "jest": true
     },
+    "globals": {
+      "cy": true
+    },
     "parser": "@babel/eslint-parser",
     "parserOptions": {
       "ecmaFeatures": {
