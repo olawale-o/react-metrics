@@ -1,4 +1,5 @@
 /// <reference types="Cypress" />
+/* eslint-disable cypress/no-unnecessary-waiting */
 
 describe('App component', () => {
   before(() => {
@@ -7,6 +8,7 @@ describe('App component', () => {
 
   it('list available marktets', () => {
     cy
+      .wait(5000)
       .get('ul.main-content__card-list')
       .find('li.grid-card').should('have.length', 5);
   });
