@@ -8,6 +8,14 @@ import { parseNumber, orderBy } from '../helper/helper';
 import LoadingIndicator from './LoadingIndicator';
 import { getSymbols } from '../redux/stocks/stocks';
 
+const sortButtons = [
+  { key: 'all', text: 'Sort by' },
+  { key: 'id', order: 'asc', text: 'A - Z' },
+  { key: 'id', order: 'desc', text: 'Z - A' },
+  { key: 'volume', order: 'asc', text: 'Volume - Lowest' },
+  { key: 'volume', order: 'desc', text: 'Volume - Highest' },
+];
+
 const Main = () => {
   const dispatch = useDispatch();
   const [filterBy, setFilterBy] = useState({
@@ -71,27 +79,27 @@ const Main = () => {
                 {filterBy.filterBtnText}
               </button>
               <ul className={`filter__list menu-1 ${dropDown && 'active'}`}>
-                <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'all', text: 'Sort by' })}>Sort by</button>
-                </li>
-                <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'asc', text: 'A - Z' })}>A - Z</button>
-                </li>
-                <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'desc', text: 'Z - A' })}>Z - A</button>
-                </li>
-                <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'asc', text: 'Volume - Lowest' })}>Volume - Lowest</button>
-                </li>
-                <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'desc', text: 'Volume - Highest' })}>Volume - Highest</button>
-                </li>
+                {sortButtons.map((option) => (
+                  <li
+                    key={option.text}
+                    className="list__item"
+                  >
+                    <button
+                      type="button"
+                      className="list__button"
+                      onClick={() => sortBy(option)}
+                    >
+                      {option.text}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
         <ul className="main-content__card-list">
-          {companies}
+          {companies.length && companies}
+          {!companies.length && <h3 className="no-data">No market available</h3>}
         </ul>
       </div>
     </div>
