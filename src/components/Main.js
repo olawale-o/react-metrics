@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import stocksSelector from '../redux/stocks/stocksSelector';
 import SingleCard from './Card';
 import Header from './Header';
 import stock from '../assets/stock.png';
 import { parseNumber, orderBy } from '../helper/helper';
 import LoadingIndicator from './LoadingIndicator';
+import { getSymbols } from '../redux/stocks/stocks';
 
 const Main = () => {
+  const dispatch = useDispatch();
   const [filterBy, setFilterBy] = useState({
     marketName: '',
-    sortBy: 'all',
+    filterBtnText: 'Sort by',
   });
   const { items, total, loading } = useSelector(stocksSelector);
   const [markets, setMarkets] = useState(items);
@@ -30,8 +32,13 @@ const Main = () => {
   };
 
   const sortBy = (options) => {
-    const newMarkets = orderBy(markets, options);
-    setMarkets(newMarkets);
+    if (options.key === 'all') {
+      dispatch(getSymbols());
+    } else {
+      const newMarkets = orderBy(markets, options);
+      setMarkets(newMarkets);
+    }
+    setFilterBy((prevState) => ({ ...prevState, filterBtnText: options.text }));
     setDropDown(!dropDown);
   };
 
@@ -61,20 +68,23 @@ const Main = () => {
                   setDropDown(!dropDown);
                 }}
               >
-                Sort by
+                {filterBy.filterBtnText}
               </button>
               <ul className={`filter__list menu-1 ${dropDown && 'active'}`}>
                 <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'asc' })}>A - Z</button>
+                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'all', text: 'Sort by' })}>Sort by</button>
                 </li>
                 <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'desc' })}>Z - A</button>
+                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'asc', text: 'A - Z' })}>A - Z</button>
                 </li>
                 <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'asc' })}>Volume - Lowest</button>
+                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'desc', text: 'Z - A' })}>Z - A</button>
                 </li>
                 <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'desc' })}>Volume - Highest</button>
+                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'asc', text: 'Volume - Lowest' })}>Volume - Lowest</button>
+                </li>
+                <li className="list__item">
+                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'desc', text: 'Volume - Highest' })}>Volume - Highest</button>
                 </li>
               </ul>
             </div>
