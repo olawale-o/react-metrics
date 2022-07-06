@@ -26,6 +26,7 @@
     "stylelint": "stylelint \"**/*.{css,scss}\"",
     "eslint": "eslint .",
     "lint": "npm run stylelint && npm run eslint",
+    "e2e": "cypress run --headless",
     "cy:run:headless": "cypress run --headless",
     "cy:run:chrome": "cypress run --headed --browser chrome"
   },
