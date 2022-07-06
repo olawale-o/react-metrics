@@ -22,6 +22,7 @@ const Main = () => {
     marketName: '',
     filterBtnText: 'Sort by',
   });
+  const [currentFilter, setCurrentFilter] = useState({});
   const { items, total, loading } = useSelector(stocksSelector);
   const [markets, setMarkets] = useState(items);
   const [dropDown, setDropDown] = useState(false);
@@ -36,7 +37,8 @@ const Main = () => {
   const onMarketChange = (e) => {
     setFilterBy((prevState) => ({ ...prevState, marketName: e.target.value.toUpperCase() }));
     const matchedMarkets = items.filter((item) => item.id.startsWith(e.target.value.toUpperCase()));
-    setMarkets(matchedMarkets);
+    const matchedOrderedMarkets = orderBy(matchedMarkets, currentFilter);
+    setMarkets(matchedOrderedMarkets);
   };
 
   const sortBy = (options) => {
@@ -48,6 +50,7 @@ const Main = () => {
     }
     setFilterBy((prevState) => ({ ...prevState, filterBtnText: options.text }));
     setDropDown(!dropDown);
+    setCurrentFilter(options);
   };
 
   return (
