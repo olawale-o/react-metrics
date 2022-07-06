@@ -278,6 +278,10 @@ i {
   left: 0;
 }
 
+.no-data {
+  font-size: 2.5rem;
+}
+
 @media screen and (min-width: 768px) {
   .filter-section {
     display: flex;

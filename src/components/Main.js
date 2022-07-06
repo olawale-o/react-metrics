@@ -1,17 +1,28 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import stocksSelector from '../redux/stocks/stocksSelector';
 import SingleCard from './Card';
 import Header from './Header';
 import stock from '../assets/stock.png';
 import { parseNumber, orderBy } from '../helper/helper';
 import LoadingIndicator from './LoadingIndicator';
+import { getSymbols } from '../redux/stocks/stocks';
+
+const sortButtons = [
+  { key: 'all', text: 'Sort by' },
+  { key: 'id', order: 'asc', text: 'A - Z' },
+  { key: 'id', order: 'desc', text: 'Z - A' },
+  { key: 'volume', order: 'asc', text: 'Volume - Lowest' },
+  { key: 'volume', order: 'desc', text: 'Volume - Highest' },
+];
 
 const Main = () => {
+  const dispatch = useDispatch();
   const [filterBy, setFilterBy] = useState({
     marketName: '',
-    sortBy: 'all',
+    filterBtnText: 'Sort by',
   });
+  const [currentFilter, setCurrentFilter] = useState({});
   const { items, total, loading } = useSelector(stocksSelector);
   const [markets, setMarkets] = useState(items);
   const [dropDown, setDropDown] = useState(false);
@@ -26,13 +37,20 @@ const Main = () => {
   const onMarketChange = (e) => {
     setFilterBy((prevState) => ({ ...prevState, marketName: e.target.value.toUpperCase() }));
     const matchedMarkets = items.filter((item) => item.id.startsWith(e.target.value.toUpperCase()));
-    setMarkets(matchedMarkets);
+    const matchedOrderedMarkets = orderBy(matchedMarkets, currentFilter);
+    setMarkets(matchedOrderedMarkets);
   };
 
   const sortBy = (options) => {
-    const newMarkets = orderBy(markets, options);
-    setMarkets(newMarkets);
+    if (options.key === 'all') {
+      dispatch(getSymbols());
+    } else {
+      const newMarkets = orderBy(markets, options);
+      setMarkets(newMarkets);
+    }
+    setFilterBy((prevState) => ({ ...prevState, filterBtnText: options.text }));
     setDropDown(!dropDown);
+    setCurrentFilter(options);
   };
 
   return (
@@ -61,27 +79,30 @@ const Main = () => {
                   setDropDown(!dropDown);
                 }}
               >
-                Sort by
+                {filterBy.filterBtnText}
               </button>
               <ul className={`filter__list menu-1 ${dropDown && 'active'}`}>
-                <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'asc' })}>A - Z</button>
-                </li>
-                <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'id', order: 'desc' })}>Z - A</button>
-                </li>
-                <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'asc' })}>Volume - Lowest</button>
-                </li>
-                <li className="list__item">
-                  <button className="list__button" type="button" onClick={() => sortBy({ key: 'volume', order: 'desc' })}>Volume - Highest</button>
-                </li>
+                {sortButtons.map((option) => (
+                  <li
+                    key={option.text}
+                    className="list__item"
+                  >
+                    <button
+                      type="button"
+                      className="list__button"
+                      onClick={() => sortBy(option)}
+                    >
+                      {option.text}
+                    </button>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
         </div>
         <ul className="main-content__card-list">
-          {companies}
+          {companies.length && companies}
+          {!companies.length && <h3 className="no-data">No market available</h3>}
         </ul>
       </div>
     </div>
