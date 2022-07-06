@@ -25,7 +25,9 @@
     "eject": "react-scripts eject",
     "stylelint": "stylelint \"**/*.{css,scss}\"",
     "eslint": "eslint .",
-    "lint": "npm run stylelint && npm run eslint"
+    "lint": "npm run stylelint && npm run eslint",
+    "cy:run:headless": "cypress run --headless",
+    "cy:run:chrome": "cypress run --headed --browser chrome"
   },
   "eslintConfig": {
     "extends": [
