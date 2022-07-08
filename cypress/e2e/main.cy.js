@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 /* eslint-disable cypress/no-unnecessary-waiting */
 
-describe('App component', () => {
+describe('Main Page', () => {
   before(() => {
     cy.visit('/');
   });
