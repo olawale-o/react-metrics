@@ -36,6 +36,10 @@ npm start
 ```bash
 npm test
 ```
+# Run e2e tests
+```bash
+npm run e2e
+```
 
 👤 **Omoogun Olawale**
 

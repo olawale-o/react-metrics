@@ -5,6 +5,7 @@
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
+    "cypress": "^10.2.0",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -24,7 +25,10 @@
     "eject": "react-scripts eject",
     "stylelint": "stylelint \"**/*.{css,scss}\"",
     "eslint": "eslint .",
-    "lint": "npm run stylelint && npm run eslint"
+    "lint": "npm run stylelint && npm run eslint",
+    "e2e": "cypress run --headless",
+    "cy:run:headless": "cypress run --headless",
+    "cy:run:chrome": "cypress run --headed --browser chrome"
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +57,7 @@
     "@testing-library/user-event": "^12.8.3",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.25.1",

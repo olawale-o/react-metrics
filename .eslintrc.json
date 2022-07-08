@@ -12,13 +12,19 @@
       "ecmaVersion": 2018,
       "sourceType": "module"
     },
-    "extends": ["airbnb", "plugin:react/recommended"],
-    "plugins": ["react"],
+    "extends": ["airbnb", "plugin:react/recommended", "plugin:cypress/recommended"],
+    "plugins": ["react", "cypress"],
     "rules": {
       "react/jsx-filename-extension": ["warn", { "extensions": [".js", ".jsx"] }],
       "react/react-in-jsx-scope": "off",
       "import/no-unresolved": "off",
-      "no-shadow": "off"
+      "no-shadow": "off",
+      "cypress/no-assigning-return-values": "error",
+      "cypress/no-unnecessary-waiting": "error",
+      "cypress/assertion-before-screenshot": "warn",
+      "cypress/no-force": "warn",
+      "cypress/no-async-tests": "error",
+      "cypress/no-pause": "error"
     },
     "ignorePatterns": [
       "dist/",
