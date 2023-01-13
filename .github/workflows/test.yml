@@ -1,0 +1,24 @@
+name: Test
+
+on: pull_request
+
+jobs:
+  e2etest:
+    name: E2ETest
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+        os: [ubuntu-latest]
+    runs-on: ${{matix.os}}
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+      - name: Use Nodejs ${{ matix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Setup E2ETesting
+        run: |
+          npm install --save cypress
+      - name: E2ETest Report
+        run: npm run e2e
